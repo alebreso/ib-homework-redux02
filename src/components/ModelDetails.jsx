@@ -1,29 +1,24 @@
-import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import React from 'react'
 import store from '../Store'
 
-class ModelDetails extends Component {
-	state={store:store.getState()}
-
-  render() {
-		const myStore = store.getState()
-		console.log(myStore)
+export default function ModelDetails() {
+	const renderData = (elem) => {
 		return(
-			<form>
-				<label>Name:{this.props.data.value}</label>
-				<label>manufacturer:{this.props.manufacturer}</label>
-			</form>
+			<ul>
+					<li>name:{elem.value}</li>
+					<li>manufacturer:{elem.manufacturer}</li>
+					<li>year:{elem.year}</li>
+					<li>origin:{elem.origin}</li>
+				</ul>
 		)
 	}
-}
 
-const  mapStateToProps = (state) => {
-	return{
-			manufacturer: state.manufacturer,
-			year: state.year,
-			origin: state.origin,
+	const myStore = store.getState()
+	console.log(myStore)
+	if (!myStore.length) return null
+		return (
+			myStore.map(elem => renderData(elem))
+		)
 	}
-}
 
-export default connect(mapStateToProps)(ModelDetails);
 

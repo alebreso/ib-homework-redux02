@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import store from './Store'
 import ModelDetails from './components/ModelDetails'
-import {connect} from 'react-redux'
 import './App.css';
 
 const data = {
@@ -45,7 +44,7 @@ class App extends Component {
     store.dispatch({
       type:"ADD_MODEL",
       payload: computerData
-    })    
+    })
   }
 
   render() {
@@ -57,19 +56,12 @@ class App extends Component {
           {
             Object.keys(data).map((str,i) => this.renderOptionsTags(str,i))
           }
-        </select> 
-        <ModelDetails data={this.props}/>
+        </select>
+        <ModelDetails />
       </div>
     );
   }
 }
 
-const  mapStateToProps = (state) => {
-	return{
-    manufacturer:state.manufacturer,
-    year:state.year,
-    origin:state.origin
-  }
-}
 
-export default connect (mapStateToProps)(App);
+export default App
