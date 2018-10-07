@@ -45,6 +45,7 @@ class App extends Component {
       type:"ADD_MODEL",
       payload: computerData
     })
+    this.setState({...store})
   }
 
   render() {
