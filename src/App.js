@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import store from './Store'
+import ModelDetails from './components/ModelDetails'
+import {connect} from 'react-redux'
 import './App.css';
 
 const data = {
@@ -24,25 +27,49 @@ const data = {
   }
 }
 
-const renderOptionsTags = (str,i) => {
-  return(
-    <option key={i+1} value={str}> {data[str].manufacturer}({data[str].year})</option>
-  )
-}
-
 class App extends Component {
+  state={}
+
+  updateSelection = (event) => {
+    this.setState({value:event.target.value})
+  }
+
+  renderOptionsTags = (str,i) => {
+    return(
+      <option key={i+1} value={str}> {data[str].manufacturer}({data[str].year})</option>
+    )
+  }
+
+  handleClick = () => {
+    const computerData = {...data[this.state.value],value:this.state.value}
+    store.dispatch({
+      type:"ADD_MODEL",
+      payload: computerData
+    })    
+  }
+
   render() {
     return (
       <div className="App">
-        <select>
+        <button onClick={this.handleClick}>++ADD++</button>
+        <select onChange={this.updateSelection} value={this.state.value}>
+          <option value="">-- pick a model --</option>
           {
-            Object.keys(data).map((str,i) => renderOptionsTags(str,i))
+            Object.keys(data).map((str,i) => this.renderOptionsTags(str,i))
           }
-        </select>
-        
+        </select> 
+        <ModelDetails data={this.props}/>
       </div>
     );
   }
 }
 
-export default App;
+const  mapStateToProps = (state) => {
+	return{
+    manufacturer:state.manufacturer,
+    year:state.year,
+    origin:state.origin
+  }
+}
+
+export default connect (mapStateToProps)(App);
