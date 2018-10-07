@@ -4,12 +4,12 @@ import store from '../Store'
 export default function ModelDetails() {
 	const renderData = (elem) => {
 		return(
-			<ul>
+			<ul key={elem.value}>
 					<li>name:{elem.value}</li>
 					<li>manufacturer:{elem.manufacturer}</li>
 					<li>year:{elem.year}</li>
 					<li>origin:{elem.origin}</li>
-				</ul>
+			</ul>
 		)
 	}
 
