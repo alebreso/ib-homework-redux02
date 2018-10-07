@@ -14,7 +14,6 @@ export default function ModelDetails() {
 	}
 
 	const myStore = store.getState()
-	console.log(myStore)
 	if (!myStore.length) return null
 		return (
 			myStore.map(elem => renderData(elem))
